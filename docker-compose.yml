@@ -1,25 +1,6 @@
 version: "3"
    
-services:
-  apache:
-    build: ./apache
-    ports:
-      - 8000:8000
-      - 8443:8443
-    volumes:
-      - ./prestashop:/app
-      - ./vhosts/apache/a22jorgegf.mywire.org.conf:/etc/apache2/sites-enabled/a22jorgegf.mywire.org.conf
-      - ./certs:/certs
-    env_file:
-      - ./.env
-
-  phpmyadmin:
-    image: phpmyadmin:latest
-    ports:
-      - 8080:80
-    environment:
-      - PMA_HOST=localhost
-  
+services: 
   nginx:
     image: nginx:latest
     ports:
@@ -31,8 +12,6 @@ services:
       - ./vhosts/nginx/a22jorgegf.mywire.org.conf:/etc/nginx/conf.d/a22jorgegf.mywire.org.conf
     env_file:
       - ./.env
-
-
   php:
     build: ./php
     volumes:
@@ -42,7 +21,3 @@ services:
       - ./php/php.ini:/etc/php/8.2/cli/php.ini
     ports:
       - 9000:9000
-
-
-volumes:
-  db_data:
